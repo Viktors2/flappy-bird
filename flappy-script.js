@@ -68,6 +68,9 @@ function upd() {
     bird.y = Math.max(bird.y + velocityY, 0); // 
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
+    if (bird.y + bird.height >= board.height) {
+        gameOver = true;
+    }
     // Draw pipes
     for (let i = 0; i < pipeArray.length; i++) {
         let pipe = pipeArray[i];
