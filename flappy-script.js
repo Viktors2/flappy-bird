@@ -87,10 +87,23 @@ function upd() {
             gameOver = true;
         }
     }
+    //to clear pipes that are out of the board
+    while (pipeArray.length > 0 && pipeArray[0].x < -pipeWidth) {
+        pipeArray.shift();
+    }
     ///scores
     context.font = "30px Arial";
-    context.fillText(score, 5, 45);
+    context.fillText(score, 44, 625 );
     context.fillStyle = "green";
+
+    // Game over
+    if (gameOver) {
+        context.font = "60px Arial";
+        context.fillText("Game Over", 25, 350);
+
+        context.font = "30px Arial";
+        context.fillText("Press R to restart", 60, 400);
+    }
 }
 
 function placePipe() {
@@ -122,9 +135,23 @@ let openingSpace = boardHeight / 4;
 }
 
 function birdMoves(e) {
-    if (e.code == "Space" || e.code == "ArrowUp") {
+    if (gameOver) {
+        if (e.code === "KeyR") {
+            restartGame();
+        }
+        return;
+    }
+    if (e.code === "Space" || e.code === "ArrowUp") {
         velocityY = -6;
     }
+}
+
+function restartGame() {
+    gameOver = false;
+    pipeArray = [];
+    score = 0;
+    bird.y = birdY;
+    velocityY = 0;
 }
 
 function collision(a, b) {
