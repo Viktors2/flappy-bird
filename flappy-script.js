@@ -80,7 +80,9 @@ function upd() {
 }
 
 function placePipe() {
-
+    if (gameOver) {
+        return;
+    }
 let randomPipeY = pipeY - pipeHeight/4 - Math.random() * (pipeHeight/2);
 let openingSpace = boardHeight / 4;
 
