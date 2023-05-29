@@ -19,6 +19,8 @@ window.onload = function() {
     board = document.querySelector('.board');
     board.height = boardHeight;
     board.width = boardWidth;
+    context = board.getContext('2d');
+    board.style.border = '1px solid black';
 
     ///For bird
     context.fillStyle = 'green';
