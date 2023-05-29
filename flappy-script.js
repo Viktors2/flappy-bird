@@ -4,7 +4,7 @@ let board,
     context,
     birdWidth =34,
     birdHeight = 24
-    birdX = boarddWidth/8,
+    birdX = boardWidth/8,
     birdY = boardHeight/2;
 
 /// Bird
@@ -19,5 +19,8 @@ window.onload = function() {
     board = document.querySelector('.board');
     board.height = boardHeight;
     board.width = boardWidth;
-    context = board.getContext('2d');
+
+    ///For bird
+    context.fillStyle = 'green';
+    context.fillRect(bird.x, bird.y, bird.width, bird.height);
 }

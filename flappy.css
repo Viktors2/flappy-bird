@@ -4,3 +4,8 @@
     box-sizing : border-box;
     text-align: center;
 }
+.board {
+    height: 640px;
+    width: 360px;
+    background-image: url("./img/flappybirdbg.png");
+}
