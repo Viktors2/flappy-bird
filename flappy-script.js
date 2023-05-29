@@ -32,6 +32,7 @@ let velocityX = -2, //will move pipes 2px to the left every frame
     gravity = 0.2 ; //will increase velocityY every frame
 
 let gameOver = false;
+let score = 0;
 
 document.addEventListener("keydown", birdMoves) // when key is pressed
 
@@ -76,10 +77,20 @@ function upd() {
         let pipe = pipeArray[i];
         pipe.x += velocityX;
         context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
+        
+        if (!pipe.passed && bird.x > pipe.x + pipe.width) {
+            pipe.passed = true;
+            score+= 0.5; // 0.5 for each pipe
+        }
+        
         if (collision(bird, pipe)) {
             gameOver = true;
         }
     }
+    ///scores
+    context.font = "30px Arial";
+    context.fillText(score, 5, 45);
+    context.fillStyle = "green";
 }
 
 function placePipe() {
