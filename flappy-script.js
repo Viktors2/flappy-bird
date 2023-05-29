@@ -23,6 +23,12 @@ window.onload = function() {
     board.style.border = '1px solid black';
 
     ///For bird
-    context.fillStyle = 'green';
+    context.fillStyle = 'transparent';
     context.fillRect(bird.x, bird.y, bird.width, bird.height);
+    ///To load images
+    let birdImage = new Image();
+    birdImage.src = './img/flappybird.png';
+    birdImage.onload = function() {
+    context.drawImage(birdImage, bird.x, bird.y, bird.width, bird.height);
+    }
 }
