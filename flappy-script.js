@@ -31,6 +31,8 @@ let velocityX = -2, //will move pipes 2px to the left every frame
     velocityY = 0, //will move bird 
     gravity = 0.2 ; //will increase velocityY every frame
 
+let gameOver = false;
+
 document.addEventListener("keydown", birdMoves) // when key is pressed
 
 window.onload = function() {
@@ -57,10 +59,13 @@ window.onload = function() {
     setInterval(placePipe, 2000); // 2 seconds
 }
 function upd() {
+    requestAnimationFrame(upd);
+    if (gameOver) {
+        return;
+    }
+    context.clearRect(0, 0, board.width, board.height); // clear the board
     velocityY += gravity; 
     bird.y = Math.max(bird.y + velocityY, 0); // 
-    requestAnimationFrame(upd);
-    context.clearRect(0, 0, board.width, board.height);
     context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
 
     // Draw pipes
@@ -68,10 +73,14 @@ function upd() {
         let pipe = pipeArray[i];
         pipe.x += velocityX;
         context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
+        if (collision(bird, pipe)) {
+            gameOver = true;
+        }
     }
 }
 
 function placePipe() {
+
 let randomPipeY = pipeY - pipeHeight/4 - Math.random() * (pipeHeight/2);
 let openingSpace = boardHeight / 4;
 
@@ -102,7 +111,7 @@ function birdMoves(e) {
     }
 }
 
-function detectCollision(a, b) {
+function collision(a, b) {
     return a.x < b.x + b.width &&
         a.x + a.width > b.x &&
         a.y < b.y + b.height &&
